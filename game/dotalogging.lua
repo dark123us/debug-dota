@@ -1,5 +1,5 @@
---local logging = require("logging")
-local logging = require ("vendors/lualogging/src/logging")
+local logging = require("vendors.debug-dota.logging.logging")
+-- local logging = require("logging.logging")
 
 local IsDedicatedServer = IsDedicatedServer or function() return false end
 local IsInToolsMode = IsInToolsMode or function() return false end
