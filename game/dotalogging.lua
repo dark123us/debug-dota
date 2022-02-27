@@ -27,7 +27,9 @@ end
 
 local function splitPath(path)
 	-- нарезаем путь, path - путь, file - имя файла, parent - родительская директория
-	if path == "=(tail call)" then return {path = "", parent="", file="lambda"} end
+	if path == "=(tail call)" then 
+        return {path = "", parent="", file="lambda"} 
+    end
 	local sep = "\\"
 	local s1 = path:find("@", 0)
 	if s1 ~= nil then
