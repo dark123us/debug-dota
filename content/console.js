@@ -20,9 +20,10 @@
     } else if (typeof module !== "undefined" && module.exports) {
         module.exports = UNIT[NAME];
     } else {
-        UNIT[NAME]._prevLogger = global[NAME];
+        const prev = '_prev' + NAME
+        UNIT[NAME][prev] = global[NAME];
         UNIT[NAME].noConflict = function () {
-            global[NAME] = UNIT[NAME]._prevLogger;
+            global[NAME] = UNIT[NAME][prev];
             return UNIT[NAME];
         };
         global[NAME] = UNIT[NAME];
