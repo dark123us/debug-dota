@@ -78,7 +78,7 @@
             global.logging = Logging._prevLogger;
             return Logging;
         };
-        global.logging = Logging;
+        global.logging = Logging();
     }
 
 
