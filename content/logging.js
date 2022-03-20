@@ -1,10 +1,13 @@
 (function(global){
     // import moment from 'moment';
     // import Logger from 'js-logger';
+    const moment = global.moment
+    const Logger = global.Logger
     const defaultLevel = Logger.DEBUG
     const MAINNAME = '__root__';
 
     const formatter = function (messages, context) {
+        if (messages[0] === undefined) messages[0] = 'undefined'
         const l = messages[0].length;
         if (l < 80) messages[0] = messages[0] + ' '.repeat(80-l);
         messages.unshift(
@@ -36,28 +39,28 @@
     }
 
     const Logging = (options) => {
-        const property = {};
-        options = options || {};
-        options.shiftline = options.shiftline || 0; // коррекция, если дебаг не попадает в строку
-        options.passline = options.passline || 6; // сколько строк пропустить в trace как служебные
-        const consoleHandler = Logger.createDefaultHandler({defaultLevel, formatter});
+        const property = {}
+        options = options || {}
+        options.shiftline = options.shiftline || 0 // коррекция, если дебаг не попадает в строку
+        options.passline = options.passline || 6 // сколько строк пропустить в trace как служебные
+        const consoleHandler = Logger.createDefaultHandler({defaultLevel, formatter})
         
         Logger.setHandler((messages, context) => {
             const msgs = Object.values(messages).map(
-                m => (m instanceof Error)?'('+m.name+') ' + m.message:m);
+                m => (m instanceof Error)?'('+m.name+') ' + m.message: m)
             if (msgs.length == 0) msgs.push('')
             if (context.level.name == 'DEBUG'){
-                const tmp  = getLine(options);
+                const tmp  = getLine(options)
                 const res = "[(" + tmp.method + ")" + tmp.file + ":" + (+tmp.line) + "]"
                 msgs.push(res);
             }
             if (context.level.name == 'ERROR'){
                 const tmp  = getLine(options);
-                const res = "[(" + tmp.method + ")" + tmp.file + ":" + (+tmp.line) + "]";
-                msgs.push(res);
-                msgs.push(tmp.stack);
+                const res = "[(" + tmp.method + ")" + tmp.file + ":" + (+tmp.line) + "]"
+                msgs.push(res)
+                msgs.push(tmp.stack)
             }
-            consoleHandler(msgs, context);
+            consoleHandler(msgs, context)
         })
 
         const data = () => {}

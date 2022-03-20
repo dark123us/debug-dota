@@ -1,5 +1,5 @@
 (function (global) {
-    const log = (...msgs) => {
+    const getMsg = (...msgs) => {
         let sep = '';
         if (!(msgs instanceof Array)) msgs = [msgs]
         const msg = msgs.reduce((prev, cur) => {
@@ -10,11 +10,18 @@
             sep = ' ';
             return res;
         }, '');
-        $.Msg(msg);
+        return msg;
+        // $.Msg(msg);
     };
+    const log = (...msgs) => {
+        $.Msg(getMsg(...msgs))
+    }
+    const error = (...msgs) => {
+        $.Warning(getMsg(...msgs))
+    }
 
     const NAME = "console"
-    const UNIT = {[NAME]: {log}}
+    const UNIT = {[NAME]: {log, error}}
     if (typeof define === "function" && define.amd) {
         define(UNIT[NAME]);
     } else if (typeof module !== "undefined" && module.exports) {
