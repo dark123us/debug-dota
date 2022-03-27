@@ -1,7 +1,6 @@
 -- local CURPATH = debug.getinfo(1,"S").source:match[[^@scripts\vscripts?(.*[\/])[^\/]-$]]
 -- local logging = require(CURPATH .. "logging.logging")
 local logging = require("logging.logging")
-
 local IsDedicatedServer = IsDedicatedServer or function() return false end
 local IsInToolsMode = IsInToolsMode or function() return false end
 local IsServer = IsServer or function() return false end
